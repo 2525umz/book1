@@ -1,0 +1,34 @@
+<h2>Books</h2>
+<div>
+ <p>Title</p>
+ <p>body</p>
+</div>
+
+<% @books.each do |book| %>
+ <span><%= book.title  %></span>
+ <span><%= book.body %></span>
+ <%= link_to "Show", book_path(book.id) %>
+ <%= link_to "Edit", edit_book_path(book.id) %>
+ <%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
+ <br>
+<% end %>
+
+
+
+
+ <h2>New book</h2>
+<% if @book.errors.any? %>
+ <%= @book.errors.count %>件のエラーが発生しました
+ <% @book.errors.full_messages.each do |message| %>
+  <%= message %>
+ <% end %>
+ <% end %>
+
+<%= form_with model: @book, local:true do |f| %>
+ <h3>Title</h3>
+ <%= f.text_field :title %>
+ <h3>Body</h3>
+ <%= f.text_area :body %>
+ <br>
+ <%= f.submit 'Creete Book' %>
+<% end %>
